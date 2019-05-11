@@ -7,6 +7,8 @@ import Stage1 from "./components/Stage1";
 import Stage2 from "./components/Stage2";
 import Stage3 from "./components/Stage3";
 import Home from "./pages/Home";
+import Loading from "./pages/Loading";
+import MessageWrite from "./pages/MessageWrite";
 
 import "./index.less";
 
@@ -35,13 +37,9 @@ class Index extends React.Component {
 
 ReactDOM.render(
   <Router history={hashHistory}>
-    <Route path="/" component={Home}>
-      <IndexRoute component={Index} />
-      <Route path="s1" component={Stage1} />
-      <Route path="s2" component={Stage2} />
-      <Route path="s3" component={Stage3} />
-      <Route path="home" component={Home} />
-    </Route>
+    <Route path="/" component={Home}></Route>
+    <Route path="/loading" component={Loading}></Route>
+    <Route path="/write" component={MessageWrite}></Route>
   </Router>,
   document.getElementById("example")
 );

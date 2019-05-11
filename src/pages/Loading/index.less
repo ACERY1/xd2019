@@ -1,0 +1,79 @@
+.loading {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-flow: column nowrap;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 10vw;
+  background: url('../../assets/background1.png') no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  &-img {
+    margin-top: 16vh;
+    height: 6rem;
+    width: 6rem;
+  }
+  &-text {
+    font-size: .9rem;
+    margin-top: 4vh;
+  }
+  &-progress {
+    font-size: .9rem;
+    margin-bottom: 4vh;
+  }
+  .proverb {
+    font-size: 1rem;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .button {
+    position: absolute;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    bottom: 10vh;
+    &-inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 6vh;
+      min-width: 40vw;
+      background: transparent;
+      border: 1px solid #575757 !important;
+      border-radius: 28px;
+      color: #505050;
+      font-size: 1rem;
+      font-weight: 400;
+      &-inner:active {
+        background-color: transparent!important;
+      }
+    }
+  }
+  @-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+  }
+}
+
