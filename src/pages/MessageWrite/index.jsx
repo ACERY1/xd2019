@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.less";
 import { Link } from "react-router";
-import { Carousel, TextareaItem, Button } from "antd-mobile";
+import { Carousel, TextareaItem, Button, InputItem, Toast } from "antd-mobile";
 
 export default class MessageWrite extends React.Component {
   constructor(props) {
@@ -24,12 +24,25 @@ export default class MessageWrite extends React.Component {
           author: "北雷吴亦凡",
           msg: "大学四年，室友间最默契的大概就是安空调的决定了"
         }
-      ]
+      ],
+      step: 1,
+      message: "",
+      author: ""
     };
   }
 
+  nextStep = () => {
+    if (this.state.message) {
+      this.setState({
+        step: 2
+      });
+    } else {
+      alert("留言不能为空");
+    }
+  };
+
   render() {
-    const { topMessages } = this.state;
+    const { topMessages, step, message, author } = this.state;
     return (
       <div className="write">
         <div className="box">
@@ -46,7 +59,12 @@ export default class MessageWrite extends React.Component {
                 <div
                   className={`write-board card${Math.ceil(Math.random() * 3)}`}
                 >
-                  <p className="message"> {obj.msg.length <=35?obj.msg : obj.msg.substr(0, 34) + '...'}</p>
+                  <p className="message">
+                    {" "}
+                    {obj.msg.length <= 35
+                      ? obj.msg
+                      : obj.msg.substr(0, 34) + "..."}
+                  </p>
                   <p className="author">—{obj.author}</p>
                 </div>
               );
@@ -57,19 +75,48 @@ export default class MessageWrite extends React.Component {
         <Link to="/message" className="linkBox">
           <p className="write-link">戳我查看更多留言 ></p>
         </Link>
-        <div className="write-text-1" >
-            <TextareaItem 
-            className="t1-main"
-            autoHeight
-            rows={6}
-            clear
-            count={48}
-            ></TextareaItem>
-            <Button 
-            className="t1-button"
-            type="primary"
-            > 下一步</Button>
-        </div>
+        {step === 1 ? (
+          <div className="write-text-1">
+            <TextareaItem
+              className="t1-main"
+              autoHeight
+              rows={6}
+              clear
+              value={message}
+              onChange={evt => {
+                this.setState({ message: evt });
+              }}
+              count={48}
+            />
+            <Button
+              className="t1-button"
+              type="primary"
+              onClick={this.nextStep}
+            >
+              下一步
+            </Button>
+          </div>
+        ) : null}
+        {step === 2 ? (
+          <div className="write-text-2">
+            <InputItem
+              className="main"
+              placeholder={"留下你的署名吧"}
+              maxLength={8}
+              value={author}
+              onChange={val => {this.setState({
+                author:val
+              });}}
+            />
+            {author ? (
+              <Link to="/message">
+                <Button className="t2-button" type="primary">
+                  完成
+                </Button>
+              </Link>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     );
   }
