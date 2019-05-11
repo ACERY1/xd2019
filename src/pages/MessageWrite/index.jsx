@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.less";
 import { Link } from "react-router";
-import { Carousel, WingBlank } from "antd-mobile";
+import { Carousel, TextareaItem, Button } from "antd-mobile";
 
 export default class MessageWrite extends React.Component {
   constructor(props) {
@@ -54,10 +54,22 @@ export default class MessageWrite extends React.Component {
           </Carousel>
         </div>
 
-        <Link to="/message">
-          <p className="write-link">戳我查看更多留言</p>
+        <Link to="/message" className="linkBox">
+          <p className="write-link">戳我查看更多留言 ></p>
         </Link>
-        <div className="write-text" />
+        <div className="write-text-1" >
+            <TextareaItem 
+            className="t1-main"
+            autoHeight
+            rows={6}
+            clear
+            count={48}
+            ></TextareaItem>
+            <Button 
+            className="t1-button"
+            type="primary"
+            > 下一步</Button>
+        </div>
       </div>
     );
   }
