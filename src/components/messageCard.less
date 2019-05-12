@@ -1,0 +1,55 @@
+.msgCard {
+  margin-top: 2rem;
+  &-item {
+    position: relative;
+    width: 72vw;
+    height: 42vw;
+    padding: 30px 20px 0 20px;
+    overflow: hidden;
+    border-radius: 10px;
+  
+    .message {
+      font-size: 0.9rem;
+      font-weight: lighter;
+      line-height: 1.6;
+      letter-spacing: 2px;
+    }
+    .author {
+      margin-top: .5rem;
+      font-size: 0.8rem;
+      font-weight: lighter;
+    }
+    .like {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      &-icon{
+        display: block;
+        height: 13px;
+        width: 17px;
+      }
+      &-text{
+        display: block;
+        line-height: 13px;
+        margin-left: 20px;
+        font-size: 13px;
+        color: #3b3b3b;
+      }
+    }
+  }
+  
+  .card1 {
+    background: url("../assets/card1.png") no-repeat;
+    background-size: 100% 100%;
+  }
+  .card2 {
+    background: url("../assets/card2.png") no-repeat;
+    background-size: 100% 100%;
+  }
+  .card3 {
+    background: url("../assets/card3.png") no-repeat;
+    background-size: 100% 100%;
+  }
+}

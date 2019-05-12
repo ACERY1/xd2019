@@ -78,7 +78,8 @@ module.exports = {
             'css-loader', { loader: 'postcss-loader', options: postcssOpts }
           ]
         })
-      }
+      },
+      { test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader' }
     ]
   },
   externals: {
