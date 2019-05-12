@@ -3,6 +3,7 @@ import "./index.less";
 import { Badge, PullToRefresh } from "antd-mobile";
 
 import likeImg from "../../assets/like.png";
+import clickImg from "../../assets/click.png";
 import likeSelectedImg from "../../assets/like_selected.png";
 import MessageCard from "../../components/MessageCard";
 import getProverb from "../../assets/proverb";
@@ -105,6 +106,7 @@ export default class MessageBoard extends React.Component {
     const { messages, refreshing, height } = this.state;
     return (
       <div className="msgBoard">
+      <p className="msgBoard-hint"><img src={clickImg} alt=""/><span>点击卡片分享你喜欢的留言</span></p>
         <div className="msgBoard-content">
           <PullToRefresh damping={100} direction={"up"} onRefresh={this.onRefresh}
           ref={el => this.ptr = el}

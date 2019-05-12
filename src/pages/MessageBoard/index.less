@@ -6,15 +6,29 @@
   width: 100vw;
   padding-left: 5vw;
   padding-right: 5vw;
+  padding-top: 3vh;
   box-sizing: border-box;
   background: url("../../assets/background3.png") no-repeat;
   background-size: 100% 100%;
   background-attachment: fixed;
 
+  &-hint{
+    display: flex;
+    align-items: center;
+    flex-flow: row nowrap;
+    height: 3vh;
+    img {
+      height: 3vh;
+      width: auto;
+      margin-right: 10px;
+    }
+    span{
+      padding-top: 1vh;
+    }
+  }
   &-content {
-    height: 94vh;
-    margin-top: 3vh;
-    padding-bottom: 4vh;
+    height: 88vh;
+    margin-top: 2vh;
     overflow: hidden;
   }
 }
