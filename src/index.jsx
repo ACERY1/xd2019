@@ -8,6 +8,7 @@ import Loading from "./pages/Loading";
 import Message from "./pages/MessageBoard";
 import MessageWrite from "./pages/MessageWrite";
 import Slide from "./pages/Slide";
+import Share from "./pages/Share";
 
 import "./index.less";
 
@@ -39,6 +40,7 @@ ReactDOM.render(
     <Route path="/" component={Loading}></Route>
     <Route path="/home" component={Slide}></Route>
     <Route path="/message" component={Message}></Route>
+    <Route path="/share/:msgId" component={Share}></Route>
   </Router>,
   document.getElementById("example")
 );
