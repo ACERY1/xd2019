@@ -10,6 +10,17 @@ import titleImg from "../../assets/title.png";
 import clockImg from "../../assets/clock.png";
 import ballImg from "../../assets/second.png";
 import startImg from "../../assets/start.png";
+import TweenOne from "rc-tween-one";
+
+const ArrowAnimation = [
+  {
+    y: 20,
+    repeat: -1,
+    duration: 600,
+    yoyo: true,
+    ease: 'easeOutCubic',
+  },
+];
 
 const graduateTime = +new Date(
   Moment("20190621 24:00:00", "YYYYMMDD hh:mm:ss")
@@ -99,7 +110,9 @@ export default class Home extends React.Component {
           <span>写下了留言</span>
         </p>
         <p className="home-slide">向下滑动开始写下你的毕业留言</p>
-        <img src={startImg} alt="" className="home-start" />
+        <TweenOne animation={ArrowAnimation}>
+          <img src={startImg} alt="" className="home-start" />
+        </TweenOne>
       </div>
     );
   }

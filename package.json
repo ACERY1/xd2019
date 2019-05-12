@@ -12,6 +12,7 @@
     "animejs": "^3.0.1",
     "antd-mobile": "^2.0.0",
     "babel-runtime": "^6.11.6",
+    "html2canvas": "^1.0.0-rc.1",
     "moment": "^2.24.0",
     "rc-form": "^0.17.2",
     "rc-texty": "^0.2.0",

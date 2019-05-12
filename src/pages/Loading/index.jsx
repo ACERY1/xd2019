@@ -81,7 +81,7 @@ export default class Loading extends React.Component {
 
         {isContentLoaded ? (
           <div className="button">
-            <Link to="/">
+            <Link to="/home">
               <Button
                 size="small"
                 onClick={() => {}}

@@ -27,7 +27,7 @@ export default class MessageWrite extends React.Component {
       ],
       step: 1,
       message: "",
-      author: ""
+      author: "",
     };
   }
 
@@ -41,8 +41,12 @@ export default class MessageWrite extends React.Component {
     }
   };
 
+  componentDidMount() {
+
+  }
+  
   render() {
-    const { topMessages, step, message, author } = this.state;
+    const { topMessages, step, message, author,testImg } = this.state;
     return (
       <div className="write">
         <div className="box">
@@ -76,7 +80,7 @@ export default class MessageWrite extends React.Component {
           <p className="write-link">戳我查看更多留言 ></p>
         </Link>
         {step === 1 ? (
-          <div className="write-text-1">
+          <div className="write-text-1" ref="helloyzy">
             <TextareaItem
               className="t1-main"
               autoHeight
