@@ -57,7 +57,7 @@ export default class Loading extends React.Component {
     return (
       <div className="loading">
         <img src={tower1Img} alt="" className="loading-img" />
-        <p className="loading-text">加载中</p>
+        <p className="loading-text">{isContentLoaded ? '加载完成' : '加载中'}</p>
         <p className="loading-progress">
           <AnimatedNumber
             value={progress}

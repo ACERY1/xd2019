@@ -40,6 +40,7 @@ ReactDOM.render(
     <Route path="/" component={Loading}></Route>
     <Route path="/home" component={Slide}></Route>
     <Route path="/message" component={Message}></Route>
+    <Route path="/messageWrite" component={MessageWrite}></Route>
     <Route path="/share/:msgId" component={Share}></Route>
   </Router>,
   document.getElementById("example")

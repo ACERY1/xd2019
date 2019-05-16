@@ -1,12 +1,13 @@
 import React from "react";
 import "./index.less";
-import html2canvas from "html2canvas";
+import html2canvas from "../../util/html2canvas";
 import QRCode from "qrcode.react";
 import countTime from "../../util/countTime";
-import Moment from "moment";
-import {Toast} from 'antd-mobile';
+import * as api from "../../util/api";
+import Moment from "../../util/moment";
+import { Toast } from "antd-mobile";
 
-const serverURL = "";
+const serverURL = "http://api.helloyzy.cn:2019/#/";
 const graduateTime = +new Date(
   Moment("20190621 24:00:00", "YYYYMMDD hh:mm:ss")
 );
@@ -16,35 +17,42 @@ export default class Share extends React.Component {
     super(props);
     this.state = {
       msgId: 3,
-      content: "嘿，兄弟，我们好久不见你在哪里",
-      sign: "王星锦测试3",
+      content: "",
+      sign: "",
       likeCount: 6,
       status: 0,
-      createTime: "2019-05-12T16:38:02",
-      updateTime: "2019-05-12T16:38:02",
+      createTime: "",
+      updateTime: "",
       posterImg: "",
       isRenderOK: false
     };
   }
 
-  componentWillMount() {
-    const msgId = this.props.params.msgId;
-  }
+  componentWillMount() {}
 
   componentDidMount() {
-    Toast.loading('生成海报中，请稍后~', 0)
-    html2canvas(this.refs.poster, {
-      // config here
-      height: window.clientHeight,
-      width: window.clientWidth,
-      allowTaint: true,
-      useCORS: true
-    }).then(canvas => {
-      this.setState({
-        posterImg: canvas.toDataURL(),
-        isRenderOK: true
-      }, ()=> {
-        Toast.hide()
+    Toast.loading("生成海报中，请稍后~", 0);
+    const msgId = this.props.params.msgId;
+    api.getMsgById({ msgId }).then(res => {
+      const data = res.data.data;
+      this.setState(Object.assign({}, this.state, { ...data }), () => {
+        html2canvas(this.refs.poster, {
+          // config here
+          height: window.clientHeight,
+          width: window.clientWidth,
+          allowTaint: true,
+          useCORS: true
+        }).then(canvas => {
+          this.setState(
+            {
+              posterImg: canvas.toDataURL(),
+              isRenderOK: true
+            },
+            () => {
+              Toast.hide();
+            }
+          );
+        });
       });
     });
   }

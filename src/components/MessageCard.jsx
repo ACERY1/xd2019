@@ -3,7 +3,7 @@ import "./messageCard.less";
 import likeImg from "../assets/like.png";
 import likeSelectedImg from "../assets/like_selected.png";
 import getProverb from "../assets/proverb";
-import {Toast} from 'antd-mobile';
+import { Toast } from "antd-mobile";
 
 export default class MessageCard extends React.Component {
   constructor(props) {
@@ -19,15 +19,18 @@ export default class MessageCard extends React.Component {
   like = index => {
     if (this.state.isLike) {
       if (this.state.likeCount < 10) {
-        this.setState(preState => {
-          return {
-            likeCount: preState.likeCount + 1
-          };
-        });
-
-        this.props.likeFn(index);
+        this.setState(
+          preState => {
+            return {
+              likeCount: preState.likeCount + 1
+            };
+          },
+          () => {
+            this.props.likeFn(index, this.state.likeCount);
+          }
+        );
       } else {
-        Toast.info('点赞最多10个喔')
+        Toast.info("点赞最多10个喔");
       }
     } else {
       this.setState(preState => {
@@ -35,8 +38,10 @@ export default class MessageCard extends React.Component {
           isLike: true,
           likeCount: preState.likeCount + 1
         };
+      }, () => {
+        this.props.likeFn(index, this.state.likeCount);
       });
-      this.props.likeFn(index);
+
     }
   };
 
@@ -46,12 +51,18 @@ export default class MessageCard extends React.Component {
 
   render() {
     const { isLike, proverb, random } = this.state;
-    const { like: nowLikeNumber, author, msg, likeIndex } = this.props;
+    const {
+      like: nowLikeNumber,
+      sign: author,
+      proverb: msg,
+      likeIndex,
+      goPoster
+    } = this.props;
     return (
       <div className="msgCard">
-        <div className={`msgCard-item card${random}`}>
+        <div className={`msgCard-item card${random}`} onClick={goPoster}>
           <p className="message">{msg || proverb}</p>
-          <p className="author">-- {author}</p>
+          <p className="author">-- {author || "2019我毕业"}</p>
           <p className="like">
             {isLike ? (
               <img

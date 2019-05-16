@@ -12,6 +12,12 @@ export default class Slide extends React.Component {
     };
   }
 
+  goMsg = () => {
+    setTimeout(() => {
+      this.props.router.push("/message");
+    }, 1800);
+  }
+
   render() {
     const { pages } = this.state;
     return (
@@ -25,7 +31,7 @@ export default class Slide extends React.Component {
               return <Home />;
             }
             if (number === 2) {
-              return <MessageWrite />;
+              return <MessageWrite goMsg={this.goMsg} />;
             }
           })}
         </Carousel>

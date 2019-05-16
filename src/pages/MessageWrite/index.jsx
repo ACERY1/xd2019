@@ -2,32 +2,19 @@ import React from "react";
 import "./index.less";
 import { Link } from "react-router";
 import { Carousel, TextareaItem, Button, InputItem, Toast } from "antd-mobile";
+import * as api from "../../util/api";
+import * as emojHandler from "../../util/emojHandler";
 
+
+const randArray =[Math.ceil(Math.random() * 3), Math.ceil(Math.random() * 3) ,Math.ceil(Math.random() * 3), Math.ceil(Math.random() * 3)]
 export default class MessageWrite extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      topMessages: [
-        {
-          author: "丁香炜炜",
-          msg: "没在这个校园里谈过一次恋爱，就要走了"
-        },
-        {
-          author: "西电老王",
-          msg: "想要你陪我从校服到礼服"
-        },
-        {
-          author: "乔奶奶私生子",
-          msg: "约晨读约自习约健身——你走了以后我和谁约呀"
-        },
-        {
-          author: "北雷吴亦凡",
-          msg: "大学四年，室友间最默契的大概就是安空调的决定了"
-        }
-      ],
+      topMessages: [],
       step: 1,
       message: "",
-      author: "",
+      author: ""
     };
   }
 
@@ -41,12 +28,37 @@ export default class MessageWrite extends React.Component {
     }
   };
 
-  componentDidMount() {
+  finish = () => {
+    // alert(emojHandler.uploadEmojiString(this.state.message))
+    // console.log(emojHandler.utf16ToEntity(this.state.message))
+    // alert(emojHandler.utf16ToEntity(this.state.message))
+    // alert(this.state.message)
+    api
+      .postMsg({
+        content: this.state.message,
+        sign: this.state.author
+      })
+      .then(res => {
+        if (!res.data.code) {
+          Toast.success("发布成功！");
+          this.props.goMsg();
+        }
+      });
+  };
 
+
+  componentWillMount() {
+    api.getAllMsg({ page: 0, size: 4, sortKey: "likeCount" }).then(res => {
+      this.setState(() => {
+        return Object.assign({}, this.state, {
+          topMessages: res.data.data.content
+        });
+      });
+    });
   }
-  
+
   render() {
-    const { topMessages, step, message, author,testImg } = this.state;
+    const { topMessages, step, message, author, testImg } = this.state;
     return (
       <div className="write">
         <div className="box">
@@ -58,18 +70,18 @@ export default class MessageWrite extends React.Component {
             infinite
             dots={false}
           >
-            {topMessages.map(obj => {
+            {topMessages.map((obj, index) => {
               return (
                 <div
-                  className={`write-board card${Math.ceil(Math.random() * 3)}`}
+                  className={`write-board card${randArray[index]}`}
                 >
                   <p className="message">
                     {" "}
-                    {obj.msg.length <= 35
-                      ? obj.msg
-                      : obj.msg.substr(0, 34) + "..."}
+                    {obj.content.length <= 35
+                      ? obj.content
+                      : obj.content.substr(0, 34) + "..."}
                   </p>
-                  <p className="author">—{obj.author}</p>
+                  <p className="author">—{obj.sign}</p>
                 </div>
               );
             })}
@@ -91,6 +103,7 @@ export default class MessageWrite extends React.Component {
                 this.setState({ message: evt });
               }}
               count={48}
+              placeholder={"点击这里写下你的留言"}
             />
             <Button
               className="t1-button"
@@ -106,18 +119,22 @@ export default class MessageWrite extends React.Component {
             <InputItem
               className="main"
               placeholder={"留下你的署名吧"}
-              maxLength={8}
+              maxLength={16}
               value={author}
-              onChange={val => {this.setState({
-                author:val
-              });}}
+              onChange={val => {
+                this.setState({
+                  author: val
+                });
+              }}
             />
             {author ? (
-              <Link to="/message">
-                <Button className="t2-button" type="primary">
-                  完成
-                </Button>
-              </Link>
+              <Button
+                className="t2-button"
+                type="primary"
+                onClick={this.finish}
+              >
+                完成
+              </Button>
             ) : null}
           </div>
         ) : null}

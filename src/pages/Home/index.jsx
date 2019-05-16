@@ -1,9 +1,10 @@
 import React from "react";
 import { WingBlank, Carousel } from "antd-mobile";
 import "./index.less";
-import Moment from "moment";
+import Moment from "../../util/moment";
 import countTime from "../../util/countTime";
 import throttle from "../../util/throttle";
+import * as api from "../../util/api";
 
 import bgImg from "../../assets/background2.png";
 import titleImg from "../../assets/title.png";
@@ -63,6 +64,12 @@ export default class Home extends React.Component {
     }, 800);
 
     intervalId = setInterval(sayTime, 1000);
+
+    api.getAllMsgNumber().then(res => {
+      this.setState({
+        messageNumber: res.data.data,
+      });
+    })
   }
 
   componentWillUnmount() {
@@ -107,7 +114,7 @@ export default class Home extends React.Component {
         <p className="home-count">
           <span>已经有</span>
           <span className="text"> {messageNumber} </span>
-          <span>写下了留言</span>
+          <span>人写下了留言</span>
         </p>
         <p className="home-slide">向下滑动开始写下你的毕业留言</p>
         <TweenOne animation={ArrowAnimation}>

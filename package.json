@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "lib/index",
   "scripts": {
-    "start": "webpack-dev-server --host 0.0.0.0 --port 8000",
+    "start": "NODE_ENV=dev webpack-dev-server --host 0.0.0.0 --port 8000",
     "build": "webpack -p --display-optimization-bailout --progress --colors"
   },
   "license": "MIT",
@@ -11,6 +11,7 @@
     "animated-number-react": "^0.0.2",
     "animejs": "^3.0.1",
     "antd-mobile": "^2.0.0",
+    "axios": "^0.18.0",
     "babel-runtime": "^6.11.6",
     "html2canvas": "^1.0.0-rc.1",
     "moment": "^2.24.0",
