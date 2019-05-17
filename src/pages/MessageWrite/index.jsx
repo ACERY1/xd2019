@@ -16,6 +16,8 @@ export default class MessageWrite extends React.Component {
       message: "",
       author: ""
     };
+    this.autoFocusInst = null;
+    this.autoFocusInst2 = null;
   }
 
   nextStep = () => {
@@ -57,6 +59,21 @@ export default class MessageWrite extends React.Component {
     });
   }
 
+  formClick = (el)=> {
+    el.focus();
+  }
+  formClick2 = ()=> {
+    this.autoFocusInst2.focus();
+  }
+
+  componentDidUpdate(nextProps, nextState) {
+  }
+  
+  
+  componentDidMount() {
+  }
+  
+
   render() {
     const { topMessages, step, message, author, testImg } = this.state;
     return (
@@ -92,12 +109,14 @@ export default class MessageWrite extends React.Component {
           <p className="write-link">戳我查看更多留言 ></p>
         </Link>
         {step === 1 ? (
-          <div className="write-text-1" ref="helloyzy">
+          <div className="write-text-1" onClick={this.formClick.bind(this, this.autoFocusInst)}>
             <TextareaItem
               className="t1-main"
               autoHeight
               rows={6}
               clear
+              ref={el => this.autoFocusInst = el}
+              focus={true}
               value={message}
               onChange={evt => {
                 this.setState({ message: evt });
@@ -115,12 +134,13 @@ export default class MessageWrite extends React.Component {
           </div>
         ) : null}
         {step === 2 ? (
-          <div className="write-text-2">
+          <div className="write-text-2" onClick={this.formClick2}>
             <InputItem
               className="main"
               placeholder={"留下你的署名吧"}
               maxLength={16}
               value={author}
+              ref={el => this.autoFocusInst2 = el}
               onChange={val => {
                 this.setState({
                   author: val
