@@ -26,3 +26,7 @@ export const likeMsg = ({ msgId = 0, count = 1 }) => {
 export const getAllMsgNumber = () => {
   return http.get(`/msgCount`);
 };
+
+export const hideMsgById = (msgId) => {
+  return http.get(`/hideMsg/${msgId}`);
+}

@@ -14,7 +14,8 @@ export default class MessageWrite extends React.Component {
       topMessages: [],
       step: 1,
       message: "",
-      author: ""
+      author: "",
+      onProcessing: false,
     };
     this.autoFocusInst = null;
     this.autoFocusInst2 = null;
@@ -31,6 +32,9 @@ export default class MessageWrite extends React.Component {
   };
 
   finish = () => {
+    this.setState({
+      onProcessing: true,
+    });
     // alert(emojHandler.uploadEmojiString(this.state.message))
     // console.log(emojHandler.utf16ToEntity(this.state.message))
     // alert(emojHandler.utf16ToEntity(this.state.message))
@@ -45,7 +49,13 @@ export default class MessageWrite extends React.Component {
           Toast.success("发布成功！");
           this.props.goMsg();
         }
-      });
+      })
+      .catch(err => {
+        this.setState({
+          onProcessing: false
+        });
+      })
+      ;
   };
 
 
@@ -75,7 +85,7 @@ export default class MessageWrite extends React.Component {
   
 
   render() {
-    const { topMessages, step, message, author, testImg } = this.state;
+    const { topMessages, step, message, author, testImg, onProcessing } = this.state;
     return (
       <div className="write">
         <div className="box">
@@ -152,6 +162,7 @@ export default class MessageWrite extends React.Component {
                 className="t2-button"
                 type="primary"
                 onClick={this.finish}
+                disabled={onProcessing}
               >
                 完成
               </Button>

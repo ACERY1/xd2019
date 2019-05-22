@@ -9,6 +9,7 @@ import Message from "./pages/MessageBoard";
 import MessageWrite from "./pages/MessageWrite";
 import Slide from "./pages/Slide";
 import Share from "./pages/Share";
+import Manage from "./pages/Manage";
 
 import "./index.less";
 
@@ -42,6 +43,7 @@ ReactDOM.render(
     <Route path="/message" component={Message}></Route>
     <Route path="/messageWrite" component={MessageWrite}></Route>
     <Route path="/share/:msgId" component={Share}></Route>
+    <Route path="/management/thisisxd2019private" component={Manage}></Route>
   </Router>,
   document.getElementById("example")
 );

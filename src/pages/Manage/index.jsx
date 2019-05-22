@@ -9,7 +9,8 @@ import MessageCard from "../../components/MessageCard";
 import getProverb from "../../assets/proverb";
 import debounce from "../../util/debounce";
 import * as api from "../../util/api";
-export default class MessageBoard extends React.Component {
+
+export default class Manage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -52,7 +53,7 @@ export default class MessageBoard extends React.Component {
   };
 
   sendLike = debounce(({ index, likeCount }) => {
-    const msgId = this.state.messages[index].msgId;
+    const msgId = this.state.messages[index].msgId
     api
       .likeMsg({
         msgId,
@@ -72,10 +73,15 @@ export default class MessageBoard extends React.Component {
 
   likeFn = (index, likeCount) => {
     let messages = this.state.messages;
-    messages[index].likeCount++;
-    let newState = Object.assign({}, messages, this.state);
-    this.setState(newState);
-    this.sendLike({ index, likeCount });
+    let msgId = messages[index].msgId;
+    api.hideMsgById(msgId).then(res => {
+      if (!res.data.code) {
+        Toast.success("删除成功", 1);
+        messages.splice(index, 1);
+        let newState = Object.assign({}, messages, this.state);
+        this.setState(newState);
+      }
+    });
   };
 
   switchFn = () => {
@@ -163,7 +169,7 @@ export default class MessageBoard extends React.Component {
       <div className="msgBoard">
         <p className="msgBoard-hint">
           <img src={clickImg} alt="" />
-          <span>点击卡片分享你喜欢的留言</span>
+          <span>这里是管理员界面，别走错了</span>
         </p>
         <div className="switch">
           <p>按热度排序</p>
@@ -182,10 +188,9 @@ export default class MessageBoard extends React.Component {
             style={{
               height: height,
               overflow: "auto",
-              paddingBottom: "2vh"
+              paddingBottom: "4vh"
             }}
             refreshing={refreshing}
-            indicator={{ deactivate: "上拉可以刷新" }}
           >
             {messages.map((item, index) => {
               return (

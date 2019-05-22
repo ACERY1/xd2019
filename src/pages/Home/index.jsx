@@ -116,7 +116,7 @@ export default class Home extends React.Component {
           <span className="text"> {messageNumber} </span>
           <span>人写下了留言</span>
         </p>
-        <p className="home-slide">向下滑动开始写下你的毕业留言</p>
+        <p className="home-slide">向上滑动开始写下你的毕业留言</p>
         <TweenOne animation={ArrowAnimation}>
           <img src={startImg} alt="" className="home-start" />
         </TweenOne>
