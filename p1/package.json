@@ -1,5 +1,0 @@
-{
-  "devDependencies": {
-    "uglifyjs-webpack-plugin": "^2.1.2"
-  }
-}
